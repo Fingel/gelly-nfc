@@ -37,7 +37,14 @@ def build_command(card_text: str) -> list[str]:
             flush=True,
         )
         return []
-    scheme, id = card_text.split(":", 1)
+    parts = card_text.split(":", 1)
+    if len(parts) == 2:
+        scheme, id = parts
+    elif len(parts) == 1:
+        scheme, id = parts[0], ""
+    else:
+        print("Invalid card text:", card_text, file=sys.stderr, flush=True)
+        return []
     match scheme:
         case "album":
             return [*base_cmd, "--big-player", "--play-album", id]

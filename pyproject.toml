@@ -1,0 +1,10 @@
+[project]
+name = "gelly-nfc"
+version = "0.1.0"
+description = "Script that listens for NFC tags and sends commands to Gelly"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "ndeflib>=0.3.3",
+    "pyscard>=2.3.1",
+]

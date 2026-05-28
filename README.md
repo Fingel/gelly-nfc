@@ -51,4 +51,7 @@ line sequence that will be executed when a card is tapped.
 Arch:   ccid acsccid pcsclite pcsc-tools
 
 Debian: libccid libacsccid1 pcscd pcsc-tools
+
+## Other stuff
+
 [pcsc_ndef.py](pcsc_ndef.py) taken from [github.com/Giraut/pcsc-ndef](https://github.com/Giraut/pcsc-ndef)

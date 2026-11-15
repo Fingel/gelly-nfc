@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 import subprocess
 import sys
 import time
@@ -47,7 +48,7 @@ def build_command(card_text: str) -> list[str]:
         return []
     match scheme:
         case "album":
-            return [*base_cmd, "--big-player", "--play-album", id]
+            return play_album_or_next(id, base_cmd)
         case "artist":
             return [*base_cmd, "--big-player", "--play-artist", id]
         case "song":
@@ -63,6 +64,16 @@ def build_command(card_text: str) -> list[str]:
         case _:
             print("Unknown scheme:", scheme, file=sys.stderr, flush=True)
             return []
+
+
+def play_album_or_next(id: str, base_cmd: list[str]) -> list[str]:
+    song_info_cmd = [*base_cmd, "--info"]
+    result = subprocess.run(song_info_cmd, capture_output=True)
+    info = json.loads(result.stdout)
+    if info["album_id"] == id:
+        return [*base_cmd, "--next"]
+    else:
+        return [*base_cmd, "--big-player", "--play-album", id]
 
 
 def read_tag_text() -> str | None:
